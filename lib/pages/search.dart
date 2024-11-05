@@ -1,20 +1,16 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
 
-class MyHomePage extends StatefulWidget {
-  String title = "";
+class Search extends StatefulWidget {
+  final title = "Search";
 
-  MyHomePage(Key key, String newtitle) {
-    title = newtitle;
-  }
-
-  // final String title;
+  const Search({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<Search> createState() => _SearchState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _SearchState extends State<Search> {
   int _counter = 0;
 
   void _incrementCounter() {
@@ -44,6 +40,10 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
+
+
+
+
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',

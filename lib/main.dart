@@ -1,38 +1,75 @@
 import 'package:flutter/material.dart';
 
-import 'pages/home.dart';
+import 'pages/profile.dart';
+import 'pages/search.dart';
 
-void main() {
-  Widget app = const App();
-  runApp(app);
-}
+void main() => runApp(const Home());
 
-class App extends StatelessWidget {
-  // stateless widget are static
-  final String title = "App";
+class Home extends StatelessWidget {
 
-  // constructor
-  const App({super.key});
+    // constructor
+  const Home({super.key});
 
-  // root
   @override
   Widget build(BuildContext context) {
-    Home home = Home(title);
-
-    ColorScheme colorScheme = ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 212, 14, 120));
-    ThemeData theme = ThemeData(colorScheme: colorScheme, useMaterial3: true);
-	ThemeData darktheme = ThemeData(brightness: Brightness.dark);
-	// ThemeData lighttheme = ThemeData(colorScheme: colorScheme, useMaterial3: true, brightness: Brightness.light);
-
     return MaterialApp(
-		title: title, 
-		theme: theme, 
-		home: home, 
-		darkTheme: darktheme, 
-		debugShowCheckedModeBanner: false
-		);
-	}
-	
+      title: "App",
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color.fromARGB(255, 254, 177, 201),
+          brightness: Brightness.dark,
+        ),
+        useMaterial3: true,
+      ),
+      home: const HomeScreen(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
 }
 
-// 
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: const Center(child: Text("Home page")),
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      appBar: AppBar(
+        title: const Text("Wolpepa"),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      ),
+
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(color: Colors.grey[700]),
+              child: const Text("Navigation"),
+            ),
+            ListTile(
+              title: const Text("profile Page"),
+              onTap: () {
+                Navigator.pop(context); // Close the drawer
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Profile()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text("Search Page"),
+              onTap: () {
+                Navigator.pop(context); // Close the drawer
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Search()),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
