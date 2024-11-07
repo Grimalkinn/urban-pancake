@@ -44,7 +44,7 @@ class HomeScreen extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             DrawerHeader(
-              decoration: BoxDecoration(color: Colors.grey[700]),
+              decoration: BoxDecoration(color: const Color.fromARGB(255, 189, 3, 3)),
               child: const Text("Navigation"),
             ),
             ListTile(
