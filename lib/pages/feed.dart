@@ -6,9 +6,9 @@ import 'dart:math';
 
 import '../services/image_service.dart';
 
-import '../pages/profile.dart' as profile;
-import '../pages/search.dart' as search;
-import '../pages/feed.dart' as feed;
+// import '../pages/profile.dart' as profile;
+// import '../pages/search.dart' as search;
+// import '../pages/feed.dart' as feed;
 
 // void main() => runApp(const Feed());
 
@@ -55,7 +55,7 @@ class FeedState extends State<Feed> {
     setState(() => _isLoading = true);
     // int next = random.nextInt(10);
     _page = random.nextInt(100);
-    String url = 'https://api.unsplash.com/photos?page=';
+    String url = 'https://api.unsplash.com/photos';
 
     try {
       final newImages =
@@ -70,29 +70,24 @@ class FeedState extends State<Feed> {
   }
 
 
-  // Widget boddy() {
-    
+  // int _selectedIndex = 1;
+
+  // void _onPageTap(int index) {
+  //   setState(() => _selectedIndex = index);
   // }
 
-
-  int _selectedIndex = 1;
-
-  void _onPageTap(int index) {
-    setState(() => _selectedIndex = index);
-  }
-
    // ignore: prefer_final_fields
-   List<Widget> _pages =  [
-    const search.Search(), // 0
-    const Feed(), // 1
-    const profile.Profile(), // 2
-  ];
+  //  List<Widget> _pages =  [
+  //   const search.Search(), // 0
+  //   const Feed(), // 1
+  //   const profile.Profile(), // 2
+  // ];
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Pinterest feed')),
+      appBar: AppBar(title: const Text('pin feed')),
       // body: _pages[_selectedIndex],
       body: RefreshIndicator(
         onRefresh: () async {

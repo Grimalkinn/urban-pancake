@@ -3,15 +3,17 @@
 import 'package:http/http.dart' as http;
 
 import 'dart:convert' as conv;
+import 'dart:math' as math;
 import 'dart:io' as io;
+
+// import '../trash/buffer.dart';
 
 class ImageService {
   static const _accessKey = 'r9AiJFD-8bAyEWiVUH83JAhxbN79okftr1Cg5ucHqkk';
 
   static Future<List<dynamic>> fetchImages(
       {int page = 1,
-      String baseUrl = "https://api.unsplash.com/photos"}
-      ) async {
+      String baseUrl = "https://api.unsplash.com/photos"}) async {
     bool debug = true;
     // ignore: dead_code
     if (debug) {
@@ -19,10 +21,13 @@ class ImageService {
       final String jsonString = await jsonFile.readAsString();
       final dynamic jsonData = conv.jsonDecode(jsonString);
       return jsonData;
-    // ignore: dead_code
+      // ignore: dead_code
     } else {
+      var random = math.Random();
+      page = random.nextInt(page);
+
       final response = await http.get(
-        Uri.parse('$baseUrl?page=$page&client_id=$_accessKey'),
+        Uri.parse('$baseUrl?page=$page&client_id=$_accessKey')
       );
 
       if (response.statusCode == 200) {
