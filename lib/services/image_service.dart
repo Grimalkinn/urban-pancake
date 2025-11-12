@@ -14,7 +14,7 @@ class ImageService {
   static Future<List<dynamic>> fetchImages(
       {int page = 1,
       String baseUrl = "https://api.unsplash.com/photos"}) async {
-    bool debug = true;
+    bool debug = false;
     // ignore: dead_code
     if (debug) {
       final jsonFile = io.File("../trash/imageApi.json");
