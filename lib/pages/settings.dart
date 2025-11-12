@@ -1,16 +1,19 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 
-class Settings extends StatefulWidget {
-  const Settings({super.key});
+// import 'package:myapp/pages/pages.dart';
 
-  @override
-  State<Settings> createState() => _ClassNameState();
-}
+// class Settings extends Pages {
+//   Settings({super.key, required super.title});
 
-class _ClassNameState extends State<Settings> {
-  @override
-  Widget build(BuildContext context) {
-    throw UnimplementedError();
-  }
-  
-}
+//   @override State<StatefulWidget> createState() => _Main();
+// }
+
+// class _Main extends State<Settings> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: const Center(child: Text("settings page")),
+//       backgroundColor: Theme.of(context).colorScheme.surface,
+//     );
+//   }
+// }

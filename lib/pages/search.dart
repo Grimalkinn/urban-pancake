@@ -1,16 +1,17 @@
-// ignore: file_names
+// // ignore: file_names
 import 'package:flutter/material.dart';
 
+import 'package:myapp/pages/feed.dart' as feed;
+import 'package:myapp/pages/profile.dart' as profile;
+
 class Search extends StatefulWidget {
-  final title = "Search";
-
   const Search({super.key});
-
   @override
-  State<Search> createState() => _SearchState();
+  State<Search> createState() { return SearchState(); }
 }
 
-class _SearchState extends State<Search> {
+class SearchState extends State<Search> {
+  String query = "";
   int _counter = 0;
 
   void _incrementCounter() {
@@ -19,19 +20,32 @@ class _SearchState extends State<Search> {
     });
   }
 
+  final List<Widget> _pages = const [
+    Search(), // 0
+    feed.Feed(), // 1
+    profile.Profile(), // 2
+
+  ];
+
+  int _selectedIndex = 0;
+
+  void _onPageTap(int index) {
+    setState(() => _selectedIndex = index);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: const Text("pin search"),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'You have pushed the button this many times:',
+              'Search page::',
             ),
             Text(
               '$_counter',
@@ -41,14 +55,22 @@ class _SearchState extends State<Search> {
         ),
       ),
 
-
-
-
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+    // body: _pages[_selectedIndex],
+    // bottomNavigationBar: NavigationBar(
+    //     selectedIndex: _selectedIndex,
+    //     onDestinationSelected: _onPageTap,
+    //     destinations: const [
+    //       // NavigationDestination(icon: Icon(Icons.search_outlined), label: 'Search'),
+    //       NavigationDestination(icon: Icon(Icons.home_outlined), label: 'Home'),
+    //       NavigationDestination(icon: Icon(Icons.person_outline), label: 'Profile'),
+    //     ],
+    //   ),
+
     );
   }
 }

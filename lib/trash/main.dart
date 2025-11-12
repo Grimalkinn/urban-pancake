@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+// import 'package:cached_network_image/cached_network_image.dart';
+// import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import 'dart:math';
 
-import './pages/feed.dart' as feed;
-import './pages/search.dart' as search;
-import './pages/profile.dart' as profile;
+import '../pages/feed.dart' as feed;
+import '../pages/search.dart' as search;
+import '../pages/profile.dart' as profile;
+// import '../services/image_service.dart';
 
 void main() {
   return runApp(const Main());
@@ -36,7 +39,7 @@ class _AppState extends State<App> {
     profile.Profile(), //2
   ];
   var random = Random();
-  int _selectedIndex = 1; // feed page as start page
+  int _selectedIndex = 0; // feed page as start page
   // bool _isLoading = false;
   // final _scrollController = ScrollController();
 

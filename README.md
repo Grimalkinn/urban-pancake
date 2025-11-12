@@ -1,16 +1,12 @@
-# myapp
+# Wolpepa App 
 
-A new Flutter project.
+- A wallpaper and image gallery app project.
 
-## Getting Started
+### Downloads
+- **Android (APK):** [Download](link-to-apk-file-in-release)
+- **Web:** [Visit website](link-to-deployed-web-app-if-applicable)
+> Note: no ios release app because its too much work. [Build your own ios app](https://docs.flutter.dev/deployment/ios)
 
-This project is a starting point for a Flutter application.
+## Docker image
+- > still in production..
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

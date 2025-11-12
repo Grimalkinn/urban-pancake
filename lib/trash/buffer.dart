@@ -1,68 +1,39 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
+// import 'package:cached_network_image/cached_network_image.dart';
+// import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-import 'dart:math';
+// import 'dart:math';
 
-import './pages/feed.dart' as feed;
-import './pages/search.dart' as search;
-import './pages/profile.dart' as profile;
+// import 'services/image_service.dart';
 
-void main() {
-  return runApp(const Main());
-}
+// void main() => runApp(const PinterestCloneApp());
 
-class Main extends StatelessWidget {
-  const Main({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Home',
-      home: const App(),
-      theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.redAccent),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
+// class PinterestCloneApp extends StatelessWidget {
+//   const PinterestCloneApp({super.key});
 
-class App extends StatefulWidget {
-  const App({super.key});
-  @override
-  State<App> createState() => _AppState();
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Pinterest CloneZ',
+//       theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.redAccent),
+//       home: const HomePage(),
+//       debugShowCheckedModeBanner: false,
+//     );
+//   }
+// }
 
-class _AppState extends State<App> {
-  final List<Widget> _pages = const [
-    search.Search(), // 0
-    feed.Feed(), // 1
-    profile.Profile(), //2
-  ];
-  var random = Random();
-  int _selectedIndex = 1; // feed page as start page
-  // bool _isLoading = false;
-  // final _scrollController = ScrollController();
+// class HomePage extends StatefulWidget {
+//   const HomePage({super.key});
 
-  void _onPageTap(int index) {
-    setState(() => _selectedIndex = index);
-  }
+//   @override State<HomePage> createState() => _HomePageState();
+// }
 
-   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: _pages[_selectedIndex],
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: _selectedIndex,
-        onDestinationSelected: _onPageTap,
-        destinations: const [
-          NavigationDestination(icon: Icon(Icons.search_outlined), label: 'Search'),
-          NavigationDestination(icon: Icon(Icons.home_outlined), label: 'Feed'),
-          NavigationDestination(icon: Icon(Icons.person_outline), label: 'Profile'),
-        ],
-      ),
-    );
-  }
-
-}
-
-
+// class _HomePageState extends State<HomePage> {
+//   final List<dynamic> _photos = [];
+//   var random = Random();
+//   int _page = 1;
+//   bool _isLoading = false;
+//   final _scrollController = ScrollController();
 
 //   @override
 //   void initState() {
