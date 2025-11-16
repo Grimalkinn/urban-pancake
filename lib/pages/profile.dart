@@ -58,7 +58,7 @@ class ProfileState extends State<Profile> {
 
     AppBar appbar = AppBar(
       title: const Text("pin profile"),
-      backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      // backgroundColor: Theme.of(context).colorScheme.inversePrimary,
     );
 
     // TextStyle? style = Theme.of(context).textTheme.headlineMedium;
@@ -70,7 +70,7 @@ class ProfileState extends State<Profile> {
         Text(
           "Welcome to Profile: $_counter",
           style: const TextStyle(
-            color: Color.fromARGB(255, 254, 177, 201),
+            color: Color.fromARGB(44, 45, 49, 1),
             fontSize: 25,
           ),
         ),
@@ -84,10 +84,10 @@ class ProfileState extends State<Profile> {
     );
 
     return Scaffold(
+      backgroundColor: const Color.fromARGB(44, 45, 49, 1), // 44, 45, 49
       appBar: appbar,
       body: Center(child: column),
       floatingActionButton: fab,
-      backgroundColor: const Color.fromARGB(169, 0, 0, 10),
     );
   }
 

@@ -3,18 +3,58 @@
 import 'package:http/http.dart' as http;
 
 import 'dart:convert' as conv;
-import 'dart:math' as math;
+// import 'dart:math' as math;
 import 'dart:io' as io;
 
 // import '../trash/buffer.dart';
 
 class ImageService {
   static const _accessKey = 'r9AiJFD-8bAyEWiVUH83JAhxbN79okftr1Cg5ucHqkk';
+  static bool debug = true;
 
-  static Future<List<dynamic>> fetchImages(
-      {int page = 1,
-      String baseUrl = "https://api.unsplash.com/photos"}) async {
-    bool debug = true;
+  static Future< Map<String, dynamic> > fetchImages(
+  // static Future<dynamic> fetchImages(
+      { // https://unsplash.com/s/photos/dog?order_by=latest
+      String baseUrl =
+          "https://api.unsplash.com/search/photos?query=cigarette"}) async {
+    //?order_by=curated&orientation=portrait&license=free
+    // bool debug = true;
+    // ignore: dead_code
+    if (debug) {
+      final jsonFile = io.File("../trash/searched.json");
+      final String jsonString = await jsonFile.readAsString();
+      final dynamic jsonData = conv.jsonDecode(jsonString);
+      return jsonData;
+      // ignore: dead_code
+    } else {
+      // var random = math.Random();
+      // page = random.nextInt(page);
+
+      // https://unsplash.com/s/photos/dog?order_by=latest
+      // https://api.unsplash.com/search/photos?query=cigarette?order_by=latest&client_id=r9AiJFD-8bAyEWiVUH83JAhxbN79okftr1Cg5ucHqkk
+      // Uri.parse('$baseUrl?page=$page&client_id=$_accessKey')
+      // String baseurl = "https://api.unsplash.com/search/photos?query=cat&client_id=r9AiJFD-8bAyEWiVUH83JAhxbN79okftr1Cg5ucHqkk";
+      // String baseUrl = "https://api.unsplash.com/search/photos?query=cigarette";
+      // String baseUrl = "https://api.unsplash.com/search/photos?query=cigarette";
+      // String baseUrl = 'https://api.unsplash.com/photos?page=30';
+      var link = Uri.parse("$baseUrl&client_id=$_accessKey");
+      final response = await http.get(link);
+      return conv.jsonDecode(response.body);
+
+      // if (response.statusCode == 200) {
+      //   return conv.jsonDecode(response.body);
+      // } else {
+      //   throw Exception('Failed to load images');
+      // }
+    }
+  }
+
+  static Future<List<dynamic>> fetchFeed(
+      { // https://unsplash.com/s/photos/dog?order_by=latest
+      String baseUrl =
+          "https://api.unsplash.com/search/photos?query=cigarette"}) async {
+    //?order_by=curated&orientation=portrait&license=free
+    // bool debug = true;
     // ignore: dead_code
     if (debug) {
       final jsonFile = io.File("../trash/imageApi.json");
@@ -23,12 +63,16 @@ class ImageService {
       return jsonData;
       // ignore: dead_code
     } else {
-      var random = math.Random();
-      page = random.nextInt(page);
+      // var random = math.Random();
+      // page = random.nextInt(page);
 
-      final response = await http.get(
-        Uri.parse('$baseUrl?page=$page&client_id=$_accessKey')
-      );
+      // https://unsplash.com/s/photos/dog?order_by=latest
+      // https://api.unsplash.com/search/photos?query=cigarette?order_by=latest&client_id=r9AiJFD-8bAyEWiVUH83JAhxbN79okftr1Cg5ucHqkk
+      // Uri.parse('$baseUrl?page=$page&client_id=$_accessKey')
+      // String baseurl = "https://api.unsplash.com/search/photos?query=cat&client_id=r9AiJFD-8bAyEWiVUH83JAhxbN79okftr1Cg5ucHqkk";
+      // String baseUrl = "https://api.unsplash.com/search/photos?query=cigarette";
+      var link = Uri.parse("$baseUrl&client_id=$_accessKey");
+      final response = await http.get(link);
 
       if (response.statusCode == 200) {
         return conv.jsonDecode(response.body);

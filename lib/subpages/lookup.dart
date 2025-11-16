@@ -7,102 +7,72 @@ import 'dart:math' as math;
 import '../services/image_service.dart';
 import '../subpages/view.dart' as view;
 
-/*
-import '../pages/profile.dart' as profile;
-import '../pages/search.dart' as search;
-import '../pages/feed.dart' as feed;
-
-void main() => runApp(const Feed());
-
-class Feed extends StatelessWidget {
-  const Feed({super.key});
-
+class Lookup extends StatefulWidget {
+  const Lookup({super.key, required String searched});
   @override
-  Widget build(BuildContext context) {
-
-    throw UnimplementedError();
-  }
-}
-*/
-
-class Feed extends StatefulWidget {
-  const Feed({super.key});
-  @override
-  State<Feed> createState() => FeedState();
+  State<Lookup> createState() => LookupState();
 }
 
-class FeedState extends State<Feed> {
-  final List<dynamic> _photos = [];
+class LookupState extends State<Lookup> {
   var random = math.Random();
-  int _page = 1;
-  bool _isLoading = false;
-  final _scrollController = ScrollController();
-
-  @override
-  void initState() {
-    super.initState();
-    _loadImages();
-    _scrollController.addListener(_scrollListener);
-  }
-
-  void _scrollListener() {
-    if (_scrollController.position.pixels ==
-        _scrollController.position.maxScrollExtent) {
-      _loadImages();
-    }
-  }
+  List<dynamic> photos = [];
+  bool loading = false;
+  int page = 0;
+  final scroll = ScrollController();
 
   Future<void> _loadImages() async {
-    if (_isLoading) return;
+    if (loading) return;
 
-    setState(() => _isLoading = true);
-    // int next = random.nextInt(10);
-    _page = random.nextInt(100);
-    // https://unsplash.com/s/photos/fantasy?order_by=latest&orientation=portrait&license=free
-    // Uri.parse('$baseUrl?page=$page&client_id=$_accessKey')
-    // String url = 'https://api.unsplash.com/photos?page=$_page';
-    // String url = 'https://unsplash.com/s/photos/fantasy?order_by=latest&orientation=portrait&license=free';
-    String url = 'https://api.unsplash.com/search/photos?query=kittens?order_by=latest';
+    setState(() => loading = true);
+    page = random.nextInt(100);
+    String url =
+        'https://api.unsplash.com/search/photos?query=kittens?order_by=latest';
     try {
       // final newImages = await ImageService.fetchFeed(baseUrl: url);
       final newImages = await ImageService.fetchImages(baseUrl: url);
       var results = newImages["results"];
       // print(results['id']);
       setState(() {
-        _photos.addAll(results);
-        _page += 1;
+        photos.addAll(results);
+        page += 1;
       });
     } finally {
-      setState(() => _isLoading = false);
+      setState(() => loading = false);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // TODO: 
+      // titled searched term
+      // search bar with search button
+      // image grid with searched images
+
       // appBar: AppBar(title: const Text('pin feed')),
-      backgroundColor: const Color.fromRGBO(44, 45, 49, 1), // #191e1f 25, 30, 31
+      backgroundColor:
+          const Color.fromRGBO(44, 45, 49, 1), // #191e1f 25, 30, 31
       body: RefreshIndicator(
         onRefresh: () async {
           setState(() {
-            _photos.clear();
-            _page = 1;
+            photos.clear();
+            page = 1;
           });
           await _loadImages();
         },
         child: MasonryGridView.count(
-          controller: _scrollController,
+          controller: scroll,
           crossAxisCount: 2,
-          itemCount: _photos.length,
+          itemCount: photos.length,
           mainAxisSpacing: 8,
           crossAxisSpacing: 8,
           padding: const EdgeInsets.all(8),
           itemBuilder: (context, index) {
-            final photo = _photos[index];
+            final photo = photos[index];
             final url = photo['urls']['small_s3'];
             String query = "";
             // if (photo.length > query.length) {
-              query = "kittens";
+            query = "kittens";
             // } else {
             //   String desc = photo['description'];
             //   List<String> descList = desc.trim().split(" ");
@@ -114,8 +84,9 @@ class FeedState extends State<Feed> {
                 onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            view.View(image: photo, related: photo['description'] ?? "kittens"),
+                        builder: (context) => view.View(
+                            image: photo,
+                            related: photo['description'] ?? "kittens"),
                       ),
                     ),
                 child: ClipRRect(
@@ -132,5 +103,6 @@ class FeedState extends State<Feed> {
         ),
       ),
     );
-  } // build
+    // );
+  }
 }
