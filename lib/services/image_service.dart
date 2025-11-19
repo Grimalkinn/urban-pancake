@@ -18,7 +18,7 @@ class ImageService {
       String baseUrl =
           "https://api.unsplash.com/search/photos?query=cigarette"}) async {
     //?order_by=curated&orientation=portrait&license=free
-    // bool debug = true;
+    bool debug = false;
     // ignore: dead_code
     if (debug) {
       final jsonFile = io.File("../trash/searched.json");

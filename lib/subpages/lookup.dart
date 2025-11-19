@@ -8,7 +8,8 @@ import '../services/image_service.dart';
 import '../subpages/view.dart' as view;
 
 class Lookup extends StatefulWidget {
-  const Lookup({super.key, required String searched});
+  final String searched;
+  const Lookup({super.key, required this.searched});
   @override
   State<Lookup> createState() => LookupState();
 }
@@ -20,13 +21,27 @@ class LookupState extends State<Lookup> {
   int page = 0;
   final scroll = ScrollController();
 
-  Future<void> _loadImages() async {
+  @override
+  void initState() {
+    super.initState();
+    _loadImages(widget.searched);
+    scroll.addListener(() {
+      if (scroll.position.pixels == scroll.position.maxScrollExtent) {
+        _loadImages(widget.searched);
+      }
+    });
+  }
+
+  Future<void> _loadImages(String look) async {
     if (loading) return;
 
-    setState(() => loading = true);
+    setState(() {
+      loading = true;
+    });
     page = random.nextInt(100);
+    String look = widget.searched;
     String url =
-        'https://api.unsplash.com/search/photos?query=kittens?order_by=latest';
+        'https://api.unsplash.com/search/photos?query=$look?order_by=latest';
     try {
       // final newImages = await ImageService.fetchFeed(baseUrl: url);
       final newImages = await ImageService.fetchImages(baseUrl: url);
@@ -44,12 +59,14 @@ class LookupState extends State<Lookup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // TODO: 
+      // TODO:
       // titled searched term
       // search bar with search button
       // image grid with searched images
 
-      // appBar: AppBar(title: const Text('pin feed')),
+      appBar: AppBar(
+        title: const Text("results"),
+      ),
       backgroundColor:
           const Color.fromRGBO(44, 45, 49, 1), // #191e1f 25, 30, 31
       body: RefreshIndicator(
@@ -58,7 +75,7 @@ class LookupState extends State<Lookup> {
             photos.clear();
             page = 1;
           });
-          await _loadImages();
+          await _loadImages(widget.searched);
         },
         child: MasonryGridView.count(
           controller: scroll,
@@ -70,15 +87,6 @@ class LookupState extends State<Lookup> {
           itemBuilder: (context, index) {
             final photo = photos[index];
             final url = photo['urls']['small_s3'];
-            String query = "";
-            // if (photo.length > query.length) {
-            query = "kittens";
-            // } else {
-            //   String desc = photo['description'];
-            //   List<String> descList = desc.trim().split(" ");
-            //   query = descList[
-            //       math.Random().nextInt(((descList.length) / 2) as int)];
-            // }
 
             return GestureDetector(
                 onTap: () => Navigator.push(
